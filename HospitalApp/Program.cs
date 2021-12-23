@@ -1,6 +1,22 @@
+using HospitalApp.Interfaces;
+using HospitalApp.Repository;
+using HospitalApp.Entities;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add memory cache services
+builder.Services.AddMemoryCache();
+
+// configure DB connection
+var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connString));
+
+// Add scoped services to the container.
+builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<INurseRepository, NurseRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

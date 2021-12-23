@@ -4,32 +4,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalApp.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class HospitalController : ControllerBase
     {
-        private readonly IServices<Hospital> hospitalService;
+        private readonly IHospitalRepository repository;
 
-        public HospitalController(IServices<Hospital> _hospitalService) {
-            hospitalService = _hospitalService;
-
-            Hospital h1 = new Hospital("General Hospital 1");
-            h1.city = "Pune";
-            h1.street = "Abc";
-            h1.pincode = 123;
-
-            Hospital h2 = new Hospital("General Hospital 2");
-            h1.city = "Pune city";
-            h1.street = "Pqr";
-            h1.pincode = 124;
-
-            hospitalService.Add(h1);
-            hospitalService.Add(h2);
+        public HospitalController(IHospitalRepository _repository)
+        {
+            repository = _repository;
         }
 
-        [HttpGet(Name = "GetAll")]
-        public IEnumerable<Hospital> Get() {
-            return hospitalService.GetAll();
+        [HttpGet]
+        public IEnumerable<Hospital> Get()
+        {
+
+            //Hospital h1 = new Hospital();
+            //h1.Name = "General Hospital 2";
+
+            //Hospital h2 = new Hospital();
+            //h1.Name = "General Hospital 1";
+
+            //repository.Add(h1);
+            //repository.Add(h2);
+
+            //repository.Save();
+            
+            return repository.GetAll();
+        }
+
+        [HttpPost]
+        public IResult Post(Hospital hospital)
+        {
+            return Results.Ok();
         }
     }
 }
