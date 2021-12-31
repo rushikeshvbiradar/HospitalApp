@@ -12,13 +12,14 @@ namespace HospitalApp.Repository
             repositoryContext = _repositoryContext;
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             repositoryContext.Set<T>().Add(entity);
         }
 
         public void Update(T entity)
         {
+            entity.UpdatedDate = DateTime.Now;
             repositoryContext.Set<T>().Update(entity);
         }
 

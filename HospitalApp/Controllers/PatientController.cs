@@ -8,37 +8,47 @@ namespace HospitalApp.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
-        private readonly IPatientRepository repository;
+        private readonly IPatientRepository patientRepository;
 
         public PatientController(IPatientRepository _repository)
         {
-            repository = _repository;
+            patientRepository = _repository;
         }
 
         [HttpGet]
         public IEnumerable<Patient> Get()
         {
-            return repository.GetAll();
+            return patientRepository.GetAll();
+        }
+
+        [HttpGet]
+        [Route("getbyid")]
+        public Patient GetById(Guid id)
+        {
+            return patientRepository.Get(id);
         }
 
         [HttpPost]
         public IResult Post(Patient patient)
         {
-            repository.Add(patient);
+            patientRepository.Add(patient);
+            patientRepository.Save();
             return Results.Ok();
         }
 
         [HttpPut]
         public IResult Put(Patient patient)
         {
-            repository.Update(patient);
+            patientRepository.Update(patient);
+            patientRepository.Save();
             return Results.Ok();
         }
 
         [HttpDelete]
         public IResult Delete(Patient patient)
         {
-            repository.Delete(patient);
+            patientRepository.Delete(patient);
+            patientRepository.Save();
             return Results.Ok();
         }
     }
