@@ -22,8 +22,8 @@ namespace HospitalApp.Controllers
         }
 
         [HttpGet]
-        [Route("getbyid")]
-        public Doctor GetById(Guid id)
+        [Route("{id}")]
+        public Doctor Get([FromRoute] Guid id)
         {
             return doctorRepository.Get(id);
         }

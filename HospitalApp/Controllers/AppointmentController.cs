@@ -1,4 +1,5 @@
-﻿using HospitalApp.Interfaces;
+﻿using HospitalApp.DTOModels;
+using HospitalApp.Interfaces;
 using HospitalApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +16,22 @@ namespace HospitalApp.Controllers
             appointmentRepository = _appointmentRepository;
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public Appointment Get([FromRoute] Guid id)
+        {
+            return appointmentRepository.Get(id);
+        }
+
+        [HttpGet]
+        [Route("getfreeslots/{doctorId}")]
+        public IEnumerable<Slot> GetFreeSlots([FromRoute] Guid doctorId)
+        {
+            return appointmentRepository.GetAllFreeSlots(doctorId);
+        }
+
         [HttpPost]
-        public IResult Add(Appointment appointment)
+        public IResult Post(Appointment appointment)
         {
             appointmentRepository.Add(appointment);
             appointmentRepository.Save();
