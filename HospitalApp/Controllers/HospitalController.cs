@@ -17,7 +17,7 @@ namespace HospitalApp.Controllers
 
         [HttpGet]
         public IEnumerable<Hospital> Get()
-        {   
+        {
             return hospitalRepository.GetAll();
         }
 
@@ -31,25 +31,46 @@ namespace HospitalApp.Controllers
         [HttpPost]
         public IResult Post(Hospital hospital)
         {
-            hospitalRepository.Add(hospital);
-            hospitalRepository.Save();
-            return Results.Ok();
+            try
+            {
+                hospitalRepository.Add(hospital);
+                hospitalRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         [HttpPut]
         public IResult Put(Hospital hospital)
         {
-            hospitalRepository.Update(hospital);
-            hospitalRepository.Save();
-            return Results.Ok();
+            try
+            {
+                hospitalRepository.Update(hospital);
+                hospitalRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         [HttpDelete]
         public IResult Delete(Hospital hospital)
         {
-            hospitalRepository.Delete(hospital);
-            hospitalRepository.Save();
-            return Results.Ok();
+            try
+            {
+                hospitalRepository.Delete(hospital);
+                hospitalRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
     }
 }

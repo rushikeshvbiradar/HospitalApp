@@ -17,7 +17,7 @@ namespace HospitalApp.Repository
         {
             if (appointment.From.Hour < 9 || appointment.From.Hour > 16 || appointment.From.Hour == 12)
             {
-                throw new Exception("Appointment can be scheduled between 9 - 12 and 1 to 5 only");
+                throw new Exception("Appointment can be scheduled between 9 - 12 and 13 to 17 only");
             }
             // correct date
             appointment.From = GetValidDate(appointment.From);

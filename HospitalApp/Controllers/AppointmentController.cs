@@ -33,25 +33,46 @@ namespace HospitalApp.Controllers
         [HttpPost]
         public IResult Post(Appointment appointment)
         {
-            appointmentRepository.Add(appointment);
-            appointmentRepository.Save();
-            return Results.Ok();
+            try
+            {
+                appointmentRepository.Add(appointment);
+                appointmentRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         [HttpPut]
         public IResult Put(Appointment appointment)
         {
-            appointmentRepository.Update(appointment);
-            appointmentRepository.Save();
-            return Results.Ok();
+            try
+            {
+                appointmentRepository.Update(appointment);
+                appointmentRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         [HttpDelete]
         public IResult Delete(Appointment appointment)
         {
-            appointmentRepository.Delete(appointment);
-            appointmentRepository.Save();
-            return Results.Ok();
+            try
+            {
+                appointmentRepository.Delete(appointment);
+                appointmentRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
     }
 }

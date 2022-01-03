@@ -31,25 +31,46 @@ namespace HospitalApp.Controllers
         [HttpPost]
         public IResult Post(Nurse nurse)
         {
-            nurseRepository.Add(nurse);
-            nurseRepository.Save();
-            return Results.Ok();
+            try
+            {
+                nurseRepository.Add(nurse);
+                nurseRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         [HttpPut]
         public IResult Put(Nurse nurse)
         {
-            nurseRepository.Update(nurse);
-            nurseRepository.Save();
-            return Results.Ok();
+            try
+            {
+                nurseRepository.Update(nurse);
+                nurseRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
 
         [HttpDelete]
         public IResult Delete(Nurse nurse)
         {
-            nurseRepository.Delete(nurse);
-            nurseRepository.Save();
-            return Results.Ok();
+            try
+            {
+                nurseRepository.Delete(nurse);
+                nurseRepository.Save();
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
         }
     }
 }
